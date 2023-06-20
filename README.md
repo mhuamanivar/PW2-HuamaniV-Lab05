@@ -931,7 +931,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
         ```html
         {% extends "base_generic.html" %}
 
-        # Se añade las siguientes tres líneas para sobreescribir título
+        <!---Se añade las siguientes tres líneas para sobreescribir título--->
         {% block title %}
             <title>Library</title> 
         {% endblock %}
@@ -962,18 +962,297 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
 ***Part 6: Generic list and detail views***
 
-- Definiendo los modelos del Library.
-
-    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
+- Página de lista de libros, a la cual se accede usando ``http://127.0.0.1:8000/catalog/books/``
+    
+    - URL mapping en el archivo ``urls.py`` de ``catalog``, para acceder a la lista de libros cuando se dirija a la URL mencionada.
 
       ```py
-      class Genre(models.Model):
-          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
-
-          def __str__(self):
-              return self.name
+      urlpatterns = [
+          path('', views.index, name='index'),
+          path('books/', views.BookListView.as_view(), name='books'), # Se agregó esto
+      ]
       ```
       <br/>
+
+    - Configuramos la vista dentro del archivo ``views.py`` en ``catalog``, aumentando las siguientes líneas.
+
+      ```py
+      from django.views import generic
+
+      class BookListView(generic.ListView):
+          model = Book
+      ```
+      <br/>
+
+    - Creamos la plantilla de vista de lista de libros ``book_list.html`` dentro de ``catalog\templates\catalog\``, que al igual que ``index.html`` también hereda de ``base_generic.html`` y colocamos lo siguiente.
+
+      ```html
+      {% extends "base_generic.html" %}
+
+      {% block content %}
+
+      <h1>Book List</h1>
+
+      {% if book_list %}
+      <ul>
+          {% for book in book_list %}
+          <li>
+              <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+              ({{book.author}})
+          </li>
+          {% endfor %}
+      </ul>
+      {% else %}
+      <p>There are no books in the library.</p>
+      {% endif %}
+
+      {% endblock %}
+      ```
+      <br/>
+
+    - Actualizamos la plantilla base para que habilite el enlace en todas las páginas, modificando la parte de la lista.
+
+      ```html
+      <li><a href="{% url 'index' %}">Home</a></li>
+      <!--La siguiente línea fue modificada-->
+      <li><a href="{% url 'books' %}">All books</a></li> 
+      <li><a href="">All authors</a></li>
+      ```
+      <br/>
+
+- Página de detalles de libros, a la cual se accede usando ``http://127.0.0.1:8000/catalog/books/<id>``
+    
+    - URL mapping en el archivo ``urls.py`` de ``catalog``, para acceder a los detalles de cada uno de los libros cuando se dirija a la URL mencionada.
+
+      ```py
+      urlpatterns = [
+          path('', views.index, name='index'),
+          path('books/', views.BookListView.as_view(), name='books'),
+         
+          # Se agregó la siguiente línea
+          path('book/<int:pk>', views.BookDetailView.as_view(), name='book-detail'), 
+      ]
+      ```
+      <br/>
+
+    - Cambiamos la vista dentro del archivo ``views.py`` en ``catalog``, aumentando las siguientes líneas.
+
+      ```py
+      class BookDetailView(generic.DetailView):
+          model = Book
+      ```
+      <br/>
+
+    - Creamos la plantilla de vista de los detalles de libros ``book_detail.hmtl`` dentro de ``catalog\templates\catalog\``, que también hereda de ``base_generic.html`` y colocamos lo siguiente.
+
+      ```html
+      {% extends "base_generic.html" %}
+
+      {% block content %}
+      <h1>Title: {{ book.title }}</h1>
+
+      <p><strong>Author:</strong> <a href="">{{ book.author }}</a></p>
+      <!-- author detail link not yet defined -->
+      <p><strong>Summary:</strong> {{ book.summary }}</p>
+      <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+      <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
+
+      <div style="margin-left:20px;margin-top:20px">
+          <h4>Copies</h4>
+
+          {% for copy in book.bookinstance_set.all %}
+          <hr />
+          <p class="{% if copy.status == 'a' %}text-success{% elif copy.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+              {{ copy.get_status_display }}
+          </p>
+          {% if copy.status != 'a' %}
+          <p><strong>Due to be returned:</strong> {{ copy.due_back }}</p>
+          {% endif %}
+          <p><strong>Imprint:</strong> {{ copy.imprint }}</p>
+          <p class="text-muted"><strong>Id:</strong> {{ copy.id }}</p>
+          {% endfor %}
+      </div>
+
+      {% endblock %}
+      ```
+      <br/>
+
+- Corremos el servidor con ``python manage.py runserver``
+
+    - Se ingresa a la URL ``http://127.0.0.1:8000/`` redirigida a ``http://127.0.0.1:8000/catalog/`` y se hace click a ``All books`` se puede ver la lista de libros que hay.
+
+      <img src="img" style="width:70%"/><br/>
+      <br/>
+
+    - Si se ingresa a uno de esos libros se puede ver los detalles de este.
+
+      <img src="img" style="width:70%"/><br/>
+      <br/>
+
+- Paginación para los registros
+
+    - Se cambia la vista dentro del archivo ``views.py`` en ``catalog``, aumentando las siguientes líneas.
+
+      ```py
+      class BookListView(generic.ListView):
+          model = Book
+          paginate_by = 10 # Se aumentó esto
+      ```
+      <br/>
+    - Se modifica la plantilla ``base_generic.html`` y colocamos lo siguiente dentro del div ``col-sm-10``.
+
+      ```html
+      <div class="col-sm-10 ">
+          {% block content %}{% endblock %}
+
+          {% block pagination %}
+              {% if is_paginated %}
+                  <div class="pagination">
+                      <span class="page-links">
+                          {% if page_obj.has_previous %}
+                              <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                          {% endif %}
+                          <span class="page-current">
+                              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                          </span>
+                          {% if page_obj.has_next %}
+                              <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                          {% endif %}
+                      </span>
+                  </div>
+              {% endif %}
+          {% endblock %}
+      </div>
+      ```
+      <br/>
+
+    - Si se quiere ver un cambio en la lista de libros, entonces modificamos en ``views.py`` y colocamos ``paginate_by = 2`` para ver lo que sucede en la imagen, luego volvemos a colocarlo originalmente ``paginate_by = 10``.
+
+      <img src="img" style="width:70%"/><br/>
+      <br/>
+
+- (Desafío: Lista de autores y detalle de autores) Crear las páginas correspondientes
+
+    - Página de lista de autores, a la cual se accede usando ``http://127.0.0.1:8000/catalog/autrors/``
+        
+      - URL mapping en el archivo ``urls.py`` de ``catalog``, para acceder a la lista de libros cuando se dirija a la URL mencionada.
+
+        ```py
+        urlpatterns = [
+            path('', views.index, name='index'),
+            path('books/', views.BookListView.as_view(), name='books'),
+            path('authors/', views.AuthorListView.as_view(), name='authors'), # Se agregó esto
+        ]
+        ```
+        <br/>
+
+      - Configuramos la vista dentro del archivo ``views.py`` en ``catalog``, aumentando las siguientes líneas.
+
+        ```py
+        class AuthorListView(generic.ListView):
+            model = Author
+            paginate_by = 10
+        ```
+        <br/>
+
+      - Creamos la plantilla de vista de lista de autores ``author_list.html`` dentro de ``catalog\templates\catalog\`` y colocamos lo siguiente.
+
+        ```html
+        {% extends "base_generic.html" %}
+
+        {% block content %}
+
+        <h1>Author List</h1>
+
+        {% if author_list %}
+        <ul>
+            {% for author in author_list %}
+            <li>
+                <a href="{{ author.get_absolute_url }}">
+                    {{ author }} ({{author.date_of_birth}} - {% if author.date_of_death %}{{author.date_of_death}}{% endif %})
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>There are no authors available.</p>
+        {% endif %}
+
+        {% endblock %}
+        ```
+        <br/>
+
+      - Actualizamos la plantilla base para que habilite el enlace en todas las páginas, modificando la parte de la lista.
+
+        ```html
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li><a href="{% url 'books' %}">All books</a></li>
+        <!--La siguiente línea fue modificada-->
+        <li><a href="{% url 'authors' %}">All authors</a></li>
+        ```
+        <br/>
+
+    - Página de detalles de autores, a la cual se accede usando ``http://127.0.0.1:8000/catalog/authors/<id>``
+        
+      - URL mapping, para acceder a los detalles de cada uno de los libros cuando se dirija a la URL mencionada.
+
+        ```py
+        urlpatterns = [
+            path('', views.index, name='index'),
+            path('books/', views.BookListView.as_view(), name='books'),
+            path('book/<int:pk>', views.BookDetailView.as_view(), name='book-detail'),
+            path('authors/', views.AuthorListView.as_view(), name='authors'),
+            
+            # Se agregó la siguiente línea
+            path('author/<int:pk>', views.AuthorDetailView.as_view(), name='author-detail'),
+        ]
+        ```
+        <br/>
+
+      - Cambiamos la vista dentro del archivo ``views.py`` en ``catalog``, aumentando las siguientes líneas.
+
+        ```py
+        class AuthorDetailView(generic.DetailView):
+            model = Author
+        ```
+        <br/>
+
+      - Creamos la plantilla de vista de los detalles de autores ``author_detail.hmtl`` dentro de ``catalog\templates\catalog\`` y colocamos lo siguiente.
+
+        ```html
+        {% extends "base_generic.html" %}
+
+        {% block content %}
+
+        <h1>Author: {{ author }} </h1>
+        <p>{{author.date_of_birth}} - {% if author.date_of_death %}{{author.date_of_death}}{% endif %}</p>
+
+        <div style="margin-left:20px;margin-top:20px">
+          <h4>Books</h4>
+
+          <dl>
+            {% for book in author.book_set.all %}
+            <dt><a href="{% url 'book-detail' book.pk %}">{{book}}</a> ({{book.bookinstance_set.all.count}})</dt>
+            <dd>{{book.summary}}</dd>
+            {% endfor %}
+          </dl>
+
+        </div>
+        {% endblock %}
+        ```
+        <br/>
+    
+    - Corremos el servidor con ``python manage.py runserver``
+
+      - Se ingresa a la URL ``http://127.0.0.1:8000/`` redirigida a ``http://127.0.0.1:8000/catalog/`` y se hace click a ``All authors`` se puede ver la lista de autores que hay.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Si se ingresa a uno de los autores se puede ver los detalles de este.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
 
 
 ***Part 7: Sessions framework***
