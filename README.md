@@ -134,7 +134,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
     ```
     <br/>
 
-- Registro de la aplicación catalog dentro del archivo settings.py.
+- Registro de la aplicación catalog dentro del archivo ``settings.py``.
 
     ```py
     # Application definition
@@ -151,7 +151,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
     ```
     <br/>
 
-- Especificación de la base de datos dentro del archivo settings.py, no se necesita hacer cambios.
+- Especificación de la base de datos dentro del archivo ``settings.py``, no se necesita hacer cambios.
 
     ```py
     # Database
@@ -166,7 +166,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
     ```
     <br/>
   
-- Otros ajustes del proyecto: TimeZone dentro del archivo settings.py.
+- Otros ajustes del proyecto: TimeZone dentro del archivo ``settings.py``.
 
     ```py
     # Internationalization
@@ -182,7 +182,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
     ```
     <br/>
 
-- Conectar el URL mapper dentro del archivo urls.py.
+- Conectar el URL mapper dentro del archivo ``urls.py``.
 
     - Se añade estas líneas al final del archivo para agregar un nuevo elemento a la lista ``urlpatterns``, que incluye un oath para redirigir peticiones con patrón ``catalog/`` al módulo ``catalog.urls``.
 
@@ -441,7 +441,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
 ***Part 4: Django admin site***
 
-- Registrando los modelos en el archivo admin.py de la aplicación catalog colocando lo siguiente.
+- Registrando los modelos en el archivo ``admin.py`` de la aplicación ``catalog`` colocando lo siguiente.
 
     ```py
     from .models import Author, Genre, Book, BookInstance
@@ -583,7 +583,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
 - Configuraciones avanzadas
 
-    - Registramos una clase ModelAdmin, colocando lo siguiente en el archivo admin.py de catalog.
+    - Registramos una clase ModelAdmin, colocando lo siguiente en el archivo ``admin.py`` de ``catalog``.
 
       ```py
       from django.contrib import admin
@@ -639,7 +639,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
         ```
         <br/>
 
-      - Por otro lado abrimos el archivo models.py de catalog para crear una cadena de texto de los primeros valores del campo ``genre`` con una ``short_description`` (descripción corta) usando las siguientes líneas dentro de la clase ``Book``.
+      - Por otro lado abrimos el archivo ``models.py`` de catalog para crear una cadena de texto de los primeros valores del campo ``genre`` con una ``short_description`` (descripción corta) usando las siguientes líneas dentro de la clase ``Book``.
 
         ```py
         def display_genre(self):
@@ -654,7 +654,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
         <img src="img" style="width:70%"/><br/>
         <br/>
 
-    - Para añadir filtros de lista podemos ir nuevavamente al archivo admin.py y modificar la clase ``BookInstanceAdmin``
+    - Para añadir filtros de lista podemos ir nuevavamente al archivo ``admin.py`` y modificar la clase ``BookInstanceAdmin``
     
       - Se crean filtros con el atributo ``list_filter``.
 
@@ -670,7 +670,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
         <img src="img" style="width:70%"/><br/>
         <br/>
 
-    - Para controlar que campos son desplegados en los autores, entonces continuamos en archivo admin.py y modificamos la clase ``AuthorAdmin``
+    - Para controlar que campos son desplegados en los autores, entonces continuamos en archivo ``admin.py`` y modificamos la clase ``AuthorAdmin``
     
       - Se añade la línea de ``fields`` para organizar que campos son desplegados.
 
@@ -686,7 +686,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
         <img src="img" style="width:70%"/><br/>
         <br/>
 
-    - También se puede añadir seccion en la lista de detalle, por ejemplo en las instancias de libros, modificamos la clase ``BookInstanceAdmin`` en el archivo admin.py.
+    - También se puede añadir seccion en la lista de detalle, por ejemplo en las instancias de libros, modificamos la clase ``BookInstanceAdmin`` en el archivo ``admin.py``.
     
       - Se modifica la clase con ``fieldsets``.
 
@@ -712,7 +712,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
         <img src="img" style="width:70%"/><br/>
         <br/>
 
-    - Registros asociados a una instancia de libro, para ello también se modifica el archivo admin.py.
+    - Registros asociados a una instancia de libro, para ello también se modifica el archivo ``admin.py``.
     
       - Se añade la clase ``BooksInstanceInline`` y se agrega ``inlines`` en la clase ``BookAdmin``.
 
@@ -759,7 +759,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
         <img src="img" style="width:70%"/><br/>
         <br/>
     
-    - Se modifica la clase ``AuthorAdmin`` del archivo admin.py  y también se añade la clase ``BooksInline``.
+    - Se modifica la clase ``AuthorAdmin`` del archivo ``admin.py``  y también se añade la clase ``BooksInline``.
     
       - El resultado de la clase resultaria de la siguiente manera.
 
@@ -782,6 +782,186 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
 ***Part 5: Creating our home page***
 
+- Creando la página principal.
+
+    - URL mapping, para definir un patrón URL y una función vista (index) que será llamada si el patrón es detectado Entonces modificamos el archivo ``urls.py`` de ``catalog`` para que funcione y colocamos lo siguiente.
+
+      ```py
+      urlpatterns = [
+          path('', views.index, name='index'),
+      ]
+      ```
+      <br/>
+    
+    - Vista basada en funciones que procesan una consulta HTTP y genera una pagina HTML usando los datos colocados en la base de datos. Para crear esta vista modificamos el archivo ``views.py`` de ``catalog``.
+
+      ```py
+      from django.shortcuts import render
+      from .models import Book, Author, BookInstance, Genre
+
+      def index(request):
+
+          # Extrae los registros usando objects.all()
+          num_books = Book.objects.all().count()
+          num_instances = BookInstance.objects.all().count()
+
+          # Libros disponibles (status = 'a')
+          num_instances_available = BookInstance.objects.filter(status__exact='a').count()
+          
+          num_authors = Author.objects.count()
+
+          context = {
+              'num_books': num_books,
+              'num_instances': num_instances,
+              'num_instances_available': num_instances_available,
+              'num_authors': num_authors,
+          }
+
+          # Crea y retorna una página HTML
+          return render(request, 'index.html', context=context)
+      ```
+      <br/>
+    
+    - Se crea las plantillas (``base_generic.html`` y ``index.html``) y la hoja de estilo ``styles.css``.
+
+      - Se crea la plantilla ``base_generic.html`` dentro de ``catalog\templates\``.
+
+        ```html
+        <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+            {% block title %}
+            <title>Local Library</title>
+            {% endblock %}
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+                integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+            <!-- Add additional CSS in static file -->
+            {% load static %}
+            <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+        </head>
+
+        <body>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-2">
+                        {% block sidebar %}
+                        <ul class="sidebar-nav">
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <li><a href="">All books</a></li>
+                            <li><a href="">All authors</a></li>
+                        </ul>
+                        {% endblock %}
+                    </div>
+                    <div class="col-sm-10 ">{% block content %}{% endblock %}</div>
+                </div>
+            </div>
+        </body>
+
+        </html>
+        ```
+        <br/>
+
+      - También se crea la hoja de estilo ``styles.css`` dentro de ``catalog\static\css\``.
+
+        ```css
+        .sidebar-nav {
+            margin-top: 20px;
+            padding: 0;
+            list-style: none;
+        }
+        ```
+        <br/>
+
+      - Por último, la plantilla ``index.html`` dentro de ``catalog\templates``.
+
+        ```html
+        {% extends "base_generic.html" %}
+
+        {% block content %}
+        <h1>Local Library Home</h1>
+
+        <p>Welcome to <em>LocalLibrary</em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</p>
+
+        <h2>Dynamic content</h2>
+
+        <p>The library has the following record counts:</p>
+        <ul>
+            <li><strong>Books:</strong> {{ num_books }}</li>
+            <li><strong>Copies:</strong> {{ num_instances }}</li>
+            <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
+            <li><strong>Authors:</strong> {{ num_authors }}</li>
+        </ul>
+
+        {% endblock %}
+        ```
+        <br/>
+
+    - Ahora corremos el servidor para verificar posteriormente la página principal.
+
+      ```sh
+      (my_env) C:\Users\melsy\Lab05\my_env\Scripts\library>python manage.py runserver
+      Watching for file changes with StatReloader
+      Performing system checks...
+
+      System check identified no issues (0 silenced).
+      June 20, 2023 - 15:56:58
+      Django version 4.2.2, using settings 'library.settings'
+      Starting development server at http://127.0.0.1:8000/
+      Quit the server with CTRL-BREAK.
+
+      [20/Jun/2023 15:57:06] "GET /catalog/ HTTP/1.1" 200 1431
+      [20/Jun/2023 15:57:06] "GET /static/css/styles.css HTTP/1.1" 200 80
+      ```
+      <br/>
+
+    - Abrimos la página con la URL ``http://127.0.0.1:8000/``, la cual se redirige a ``http://127.0.0.1:8000/catalog/`` y observamos lo siguiente.
+
+      <img src="img" style="width:70%"/><br/>
+      <br/>
+
+- (Desafío: Sobreescribir ``title block`` en ``index.html``) Modificar el bloque de título preestablecido por la plantilla ``base_generic.html`` en ``index.html``.
+
+    - Se modifica el archivo ``index.html`` para sobreescribir el título, en este caso, el nuevo título es solo Library.
+    
+      - El resultado del archivo resultaria de la siguiente manera.
+
+        ```html
+        {% extends "base_generic.html" %}
+
+        # Se añade las siguientes tres líneas para sobreescribir título
+        {% block title %}
+            <title>Library</title> 
+        {% endblock %}
+
+        {% block content %}
+        <h1>Local Library Home</h1>
+
+        <p>Welcome to <em>LocalLibrary</em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</p>
+
+        <h2>Dynamic content</h2>
+
+        <p>The library has the following record counts:</p>
+        <ul>
+            <li><strong>Books:</strong> {{ num_books }}</li>
+            <li><strong>Copies:</strong> {{ num_instances }}</li>
+            <li><strong>Copies available:</strong> {{ num_instances_available }}</li>
+            <li><strong>Authors:</strong> {{ num_authors }}</li>
+        </ul>
+
+        {% endblock %}
+        ```
+        <br/>
+
+      - La página principal con su nuevo título se vería de la siguiente forma.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+***Part 6: Generic list and detail views***
+
 - Definiendo los modelos del Library.
 
     - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
@@ -796,7 +976,22 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
       <br/>
 
 
-***Generic list and detail views***
+***Part 7: Sessions framework***
+
+- Definiendo los modelos del Library.
+
+    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
+
+      ```py
+      class Genre(models.Model):
+          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+
+          def __str__(self):
+              return self.name
+      ```
+      <br/>
+
+***Part 8: User authentication and permissions***
 
 - Definiendo los modelos del Library.
 
@@ -812,7 +1007,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
       <br/>
 
 
-***Sessions framework***
+***Part 9: Working with forms***
 
 - Definiendo los modelos del Library.
 
@@ -827,38 +1022,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
       ```
       <br/>
 
-***User authentication and permissions***
-
-- Definiendo los modelos del Library.
-
-    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
-
-      ```py
-      class Genre(models.Model):
-          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
-
-          def __str__(self):
-              return self.name
-      ```
-      <br/>
-
-
-***Working with forms***
-
-- Definiendo los modelos del Library.
-
-    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
-
-      ```py
-      class Genre(models.Model):
-          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
-
-          def __str__(self):
-              return self.name
-      ```
-      <br/>
-
-***Testing a Django web application***
+***Part 10: Testing a Django web application***
 
 - Definiendo los modelos del Library.
 
@@ -874,7 +1038,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
       <br/>
 
 
-***Deploying Django to production***
+***Part 11: Deploying Django to production***
 
 - Definiendo los modelos del Library.
 
