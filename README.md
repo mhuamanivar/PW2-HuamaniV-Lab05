@@ -54,11 +54,10 @@
 
 
 ##
-## SOLUCIÓN Y RESULTADOS
+## APLICACIÓN LIBRARY
 
-<br/>
 
-**INSTALACIÓN PARA EL USO DE PYTHON Y DJANGO**
+***Part 1: The local Library website (Instalando django)***
 
 Se utiliza el sistema Windows para usar las herramientas necesarias para crear los proyectos.<br/><br/>
 
@@ -117,15 +116,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
     ```
     <br/>
 
-
-
-
-##
-**I. EJERCICIO: LIBRARY**
-
-Se utiliza el sistema Windows para usar las herramientas necesarias para crear los proyectos.<br/><br/>
-
-***Creating a skeleton website***
+***Part 2: Creating a skeleton website***
 
 - Creación del proyecto library en la carpeta Scripts.
 
@@ -302,7 +293,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
     <img src="img" style="width:70%"/><br/>
     <br/>
 
-***Using models***
+***Part 3: Using models***
 
 - Definiendo los modelos del Library.
 
@@ -419,6 +410,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
     <br/>
 
 - (Desafío: Crear modelo Languague) Se crea la clase ``Language`` para que tenga un campo en caso de tener un libro en otro idioma.
+
     ```py
     class Language(models.Model):
 
@@ -446,6 +438,456 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
       ```
       <br/>
 
+
+***Part 4: Django admin site***
+
+- Registrando los modelos en el archivo admin.py de la aplicación catalog colocando lo siguiente.
+
+    ```py
+    from .models import Author, Genre, Book, BookInstance
+
+    admin.site.register(Book)
+    admin.site.register(Author)
+    admin.site.register(Genre)
+    admin.site.register(BookInstance)
+    ```
+    <br/>
+
+- Creando un superusuario para el proyecto.
+
+    - Creamos el superusuario con el usuario ``mhuamanivar``, el correo electrónico proveniente de la UNSA y una contraseña común.
+
+      ```sh
+      (my_env) C:\Users\melsy\Lab05\my_env\Scripts\library>python manage.py createsuperuser
+      Username (leave blank to use 'melsy'): mhuamanivar
+      Email address: mhuamanivar@unsa.edu.pe
+      Password:
+      Password (again):
+      This password is too common.
+      This password is entirely numeric.
+      Bypass password validation and create user anyway? [y/N]: y
+      Superuser created successfully.
+      ```
+      <br/>
+
+    - Corremos el servidor para verificar posteriormente la página.
+
+      ```sh
+      (my_env) C:\Users\melsy\Lab05\my_env\Scripts\library>python manage.py runserver
+      Watching for file changes with StatReloader
+      Performing system checks...
+
+      System check identified no issues (0 silenced).
+      June 20, 2023 - 10:28:23
+      Django version 4.2.2, using settings 'library.settings'
+      Starting development server at http://127.0.0.1:8000/
+      Quit the server with CTRL-BREAK.
+      ```
+      <br/>
+
+- Iniciando sesión y usando el sitio.
+
+    - Se ingresa a la URL ``http://127.0.0.1:8000/admin`` con los datos de superusuario.
+
+      <img src="img" style="width:70%"/><br/>
+      <br/>
+
+    - Se puede apreciar la siguiente página a continuación.
+
+      <img src="img" style="width:70%"/><br/>
+      <br/>
+
+    - Añadimos libros en el library y observamos opciones.
+
+      - Se hace click en ``add`` que se encuentra en ``Books`` y aparece lo siguiente.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Luego se apreta el botón ``+`` de ``Author`` para añadir nuevos autores o en ``Genre`` para añadir nuevos géneros. Por ejemplo añadimos ``Science Fiction``, ``Fantasy``, ``Western`` y ``French Poetry`` como lo hace en la guía, también aumentamos ``Romance`` luego damos en ``Save``.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Aquí se puede ver la lista de los géneros añadidos.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Luego añadimos libros para tenerlos en la aplicación ``Library``. Por ejemplo, el libro ``La máquina del tiempo``, primero añadimos al autor ``Herbert Wells``.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Después añadimos los datos faltantes y se guarda con ``Save and add other`` para añadir otro.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Repetimos el proceso con unos libros más (el último solo guardamos con ``Save``) y aquí se puede ver la lista de los libros añadidos.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Si damos click a un libro, por ejemplo ``El archivo de las tormentas``, este muestra el título y se puede editar, además salen botones para guardar y añadir otro, guardar y continuar editando, y guardar.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Además si se da click en ``history`` esto es lo que se verá a continuación.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Ahora se da click en ``home`` para regresar a la página principal, y podemos ver nuestras acciones.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+    - Añadimos instancias de libros en el library y observamos opciones
+
+      - Se hace click en ``Book instances``.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Para crear una nueva instancia, click en ``ADD BOOK INSTANCE`` y se añaden instancias de los libros.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Ejemplo de crear una instancia de un libro en mantenimiento.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Ejemplo de crear una instancia de un libro disponible.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Ejemplo de crear una instancia de un libro en calidad de prestamo.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Ejemplo de crear una instancia de un libro no disponible.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Finalmente, auí se puede ver todas las instancias de libros creadas.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+- Configuraciones avanzadas
+
+    - Registramos una clase ModelAdmin, colocando lo siguiente en el archivo admin.py de catalog.
+
+      ```py
+      from django.contrib import admin
+      from .models import Author, Genre, Book, BookInstance
+
+      # admin.site.register(Book)
+      # admin.site.register(Author)
+      admin.site.register(Genre)
+      # admin.site.register(BookInstance)
+
+      # Define the admin class
+      class AuthorAdmin(admin.ModelAdmin):
+          pass
+
+      # Register the admin class with the associated model
+      admin.site.register(Author, AuthorAdmin)
+
+
+      # Register the Admin classes for Book using the decorator
+      @admin.register(Book)
+      class BookAdmin(admin.ModelAdmin):
+          pass
+
+      # Register the Admin classes for BookInstance using the decorator
+      @admin.register(BookInstance)
+      class BookInstanceAdmin(admin.ModelAdmin):
+          pass
+      ```
+      <br/>
+
+    - Sin embargo, al estar ``pass`` vacío no cambiará nada en el comportamiento de administración, por lo que podemos configurar una vista de lista cambiando la clase ``AuthorAdmin``.
+    
+      - Se configura para mostrar apellido, nombre, nacimiento y fallecimiento.
+        ```py
+        class AuthorAdmin(admin.ModelAdmin):
+            list_display = ('last_name', 'first_name', 'date_of_birth', 'date_of_death')
+        ```
+        <br/>
+
+      - Se ve en la lista de autores lo siguiente con el cambio de vista.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+    
+    - También se configura una vista para el modelo ``Book``, por lo que se cambia la clase ``BookAdmin``.
+
+      - Se configura para mostrar el título, autor y genero
+
+        ```py
+        @admin.register(Book)
+        class BookAdmin(admin.ModelAdmin):
+            list_display = ('title', 'author', 'display_genre')
+        ```
+        <br/>
+
+      - Por otro lado abrimos el archivo models.py de catalog para crear una cadena de texto de los primeros valores del campo ``genre`` con una ``short_description`` (descripción corta) usando las siguientes líneas dentro de la clase ``Book``.
+
+        ```py
+        def display_genre(self):
+            return ', '.join([ genre.name for genre in self.genre.all()[:3] ])
+        
+        display_genre.short_description = 'Genre'
+        ```
+        <br/>
+
+      - Se ve en la lista de libros con los cambios de vista.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+    - Para añadir filtros de lista podemos ir nuevavamente al archivo admin.py y modificar la clase ``BookInstanceAdmin``
+    
+      - Se crean filtros con el atributo ``list_filter``.
+
+        ```py
+        @admin.register(BookInstance)
+        class BookInstanceAdmin(admin.ModelAdmin):
+            list_filter = ('status', 'due_back') # Se agregó esto
+        ```
+        <br/>
+
+      - Se puede ver la lista de instancias de libros con un filtro en el lado derecho.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+    - Para controlar que campos son desplegados en los autores, entonces continuamos en archivo admin.py y modificamos la clase ``AuthorAdmin``
+    
+      - Se añade la línea de ``fields`` para organizar que campos son desplegados.
+
+        ```py
+        class AuthorAdmin(admin.ModelAdmin):
+            list_display = ('last_name', 'first_name', 'date_of_birth', 'date_of_death')
+            fields = ['first_name', 'last_name', ('date_of_birth', 'date_of_death')] # Se agregó esto
+        ```
+        <br/>
+
+      - Se puede ver la nueva vista de detalles de autor, al hacer click en uno de los autores.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+    - También se puede añadir seccion en la lista de detalle, por ejemplo en las instancias de libros, modificamos la clase ``BookInstanceAdmin`` en el archivo admin.py.
+    
+      - Se modifica la clase con ``fieldsets``.
+
+        ```py
+        @admin.register(BookInstance)
+        class BookInstanceAdmin(admin.ModelAdmin):
+            list_filter = ('status', 'due_back')
+
+            # Se agregó lo siguiente
+            fieldsets = (
+                (None, {
+                    'fields': ('book', 'imprint', 'id')
+                }),
+                ('Availability', {
+                    'fields': ('status', 'due_back')
+                }),
+            )
+        ```
+        <br/>
+
+      - Se puede ver la nueva vista de detalles de instancias de libros, al hacer click en uno de ellos.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+    - Registros asociados a una instancia de libro, para ello también se modifica el archivo admin.py.
+    
+      - Se añade la clase ``BooksInstanceInline`` y se agrega ``inlines`` en la clase ``BookAdmin``.
+
+        ```py
+        class BooksInstanceInline(admin.TabularInline):
+            model = BookInstance
+
+        @admin.register(Book)
+        class BookAdmin(admin.ModelAdmin):
+            list_display = ('title', 'author', 'display_genre')
+            inlines = [BooksInstanceInline] # Se agregó esto
+        ```
+        <br/>
+
+      - Se puede ver la nueva vista de detalles de un libro, y observas las instancias de libro asociados.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+- (Desafío: Modificar BookInstance y Author) Modificar clase ``BookInstance`` para mostrar libros, estado, fecha de retorno e id y ``Author`` para mostrar la lista de sus libros
+
+    - Se modifica la clase ``BookInstanceAdmin`` para agregar lo solicitado.
+    
+      - El resultado de la clase resultaria de la siguiente manera.
+
+        ```py
+        class BookInstanceAdmin(admin.ModelAdmin):
+            list_display = ('book', 'status', 'due_back', 'id') # Se agregó esto
+            list_filter = ('status', 'due_back')
+
+            fieldsets = (
+                (None, {
+                    'fields': ('book', 'imprint', 'id')
+                }),
+                ('Availability', {
+                    'fields': ('status', 'due_back')
+                }),
+            )
+        ```
+        <br/>
+
+      - Se puede ver la nueva vista de las instancias de los libros.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+    
+    - Se modifica la clase ``AuthorAdmin`` del archivo admin.py  y también se añade la clase ``BooksInline``.
+    
+      - El resultado de la clase resultaria de la siguiente manera.
+
+        ```py
+        class BooksInline(admin.TabularInline):
+            model = Book
+
+        class AuthorAdmin(admin.ModelAdmin):
+            list_display = ('last_name', 'first_name', 'date_of_birth', 'date_of_death')
+            fields = ['first_name', 'last_name', ('date_of_birth', 'date_of_death')]
+            inlines = [BooksInline] # Se agregó esto
+        ```
+        <br/>
+
+      - Se puede ver la nueva vista de Autor con lista de sus libros en la parte inferior.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+
+***Part 5: Creating our home page***
+
+- Definiendo los modelos del Library.
+
+    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
+
+      ```py
+      class Genre(models.Model):
+          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+
+          def __str__(self):
+              return self.name
+      ```
+      <br/>
+
+
+***Generic list and detail views***
+
+- Definiendo los modelos del Library.
+
+    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
+
+      ```py
+      class Genre(models.Model):
+          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+
+          def __str__(self):
+              return self.name
+      ```
+      <br/>
+
+
+***Sessions framework***
+
+- Definiendo los modelos del Library.
+
+    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
+
+      ```py
+      class Genre(models.Model):
+          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+
+          def __str__(self):
+              return self.name
+      ```
+      <br/>
+
+***User authentication and permissions***
+
+- Definiendo los modelos del Library.
+
+    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
+
+      ```py
+      class Genre(models.Model):
+          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+
+          def __str__(self):
+              return self.name
+      ```
+      <br/>
+
+
+***Working with forms***
+
+- Definiendo los modelos del Library.
+
+    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
+
+      ```py
+      class Genre(models.Model):
+          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+
+          def __str__(self):
+              return self.name
+      ```
+      <br/>
+
+***Testing a Django web application***
+
+- Definiendo los modelos del Library.
+
+    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
+
+      ```py
+      class Genre(models.Model):
+          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+
+          def __str__(self):
+              return self.name
+      ```
+      <br/>
+
+
+***Deploying Django to production***
+
+- Definiendo los modelos del Library.
+
+    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
+
+      ```py
+      class Genre(models.Model):
+          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+
+          def __str__(self):
+              return self.name
+      ```
+      <br/>
 
 
 
