@@ -290,7 +290,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
 - (Desafío: Observar lo sucedido) En la url ``http://127.0.0.1:8000`` se puede ver la salida correctamente, debido a que aun no hay páginas definidas en el módulo ``catalog.urls``. Además, se ve que aunque hayamos ingresado a ese link, con la configuración anterior y el mapeo de URLs, este se redirige automáticamente a ``http://127.0.0.1:8000/catalog/``.
 
-    <img src="img" style="width:70%"/><br/>
+    <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p2img1.png" style="width:70%"/><br/>
     <br/>
 
 ***Using models***
@@ -489,91 +489,91 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
     - Se ingresa a la URL ``http://127.0.0.1:8000/admin`` con los datos de superusuario.
 
-      <img src="img" style="width:70%"/><br/>
+      <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img1.png" style="width:70%"/><br/>
       <br/>
 
     - Se puede apreciar la siguiente página a continuación.
 
-      <img src="img" style="width:70%"/><br/>
+      <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img2.png" style="width:70%"/><br/>
       <br/>
 
     - Añadimos libros en el library y observamos opciones.
 
       - Se hace click en ``add`` que se encuentra en ``Books`` y aparece lo siguiente.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img3.png" style="width:70%"/><br/>
         <br/>
 
       - Luego se apreta el botón ``+`` de ``Author`` para añadir nuevos autores o en ``Genre`` para añadir nuevos géneros. Por ejemplo añadimos ``Science Fiction``, ``Fantasy``, ``Western`` y ``French Poetry`` como lo hace en la guía, también aumentamos ``Romance`` luego damos en ``Save``.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img4.png" style="width:70%"/><br/>
         <br/>
 
       - Aquí se puede ver la lista de los géneros añadidos.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img5.png" style="width:70%"/><br/>
         <br/>
 
       - Luego añadimos libros para tenerlos en la aplicación ``Library``. Por ejemplo, el libro ``La máquina del tiempo``, primero añadimos al autor ``Herbert Wells``.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img6.png" style="width:70%"/><br/>
         <br/>
 
       - Después añadimos los datos faltantes y se guarda con ``Save and add other`` para añadir otro.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img7.png" style="width:70%"/><br/>
         <br/>
 
       - Repetimos el proceso con unos libros más (el último solo guardamos con ``Save``) y aquí se puede ver la lista de los libros añadidos.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img8.png" style="width:70%"/><br/>
         <br/>
 
       - Si damos click a un libro, por ejemplo ``El archivo de las tormentas``, este muestra el título y se puede editar, además salen botones para guardar y añadir otro, guardar y continuar editando, y guardar.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img9.png" style="width:70%"/><br/>
         <br/>
 
       - Además si se da click en ``history`` esto es lo que se verá a continuación.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img10.png" style="width:70%"/><br/>
         <br/>
 
       - Ahora se da click en ``home`` para regresar a la página principal, y podemos ver nuestras acciones.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img11.png" style="width:70%"/><br/>
         <br/>
 
     - Añadimos instancias de libros en el library y observamos opciones
 
       - Se hace click en ``Book instances`` y para crear una nueva instancia, click en ``ADD BOOK INSTANCE``.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img12.png" style="width:70%"/><br/>
         <br/>
 
       - Ejemplo de crear una instancia de un libro en mantenimiento.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img13.png" style="width:70%"/><br/>
         <br/>
 
       - Ejemplo de crear una instancia de un libro disponible.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img14.png" style="width:70%"/><br/>
         <br/>
 
       - Ejemplo de crear una instancia de un libro en calidad de prestamo.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img15.png" style="width:70%"/><br/>
         <br/>
 
       - Ejemplo de crear una instancia de un libro reservado.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img16.png" style="width:70%"/><br/>
         <br/>
 
       - Finalmente, auí se puede ver todas las instancias de libros creadas.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img17.png" style="width:70%"/><br/>
         <br/>
 
 - Configuraciones avanzadas
@@ -620,7 +620,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - Se ve en la lista de autores lo siguiente con el cambio de vista.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img18.png" style="width:70%"/><br/>
         <br/>
     
     - También se configura una vista para el modelo ``Book``, por lo que se cambia la clase ``BookAdmin``.
@@ -646,7 +646,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - Se ve en la lista de libros con los cambios de vista.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img19.png" style="width:70%"/><br/>
         <br/>
 
     - Para añadir filtros de lista podemos ir nuevavamente al archivo ``admin.py`` y modificar la clase ``BookInstanceAdmin``
@@ -662,7 +662,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - Se puede ver la lista de instancias de libros con un filtro en el lado derecho.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img20.png" style="width:70%"/><br/>
         <br/>
 
     - Para controlar que campos son desplegados en los autores, entonces continuamos en archivo ``admin.py`` y modificamos la clase ``AuthorAdmin``
@@ -678,7 +678,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - Se puede ver la nueva vista de detalles de autor, al hacer click en uno de los autores.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img21.png" style="width:70%"/><br/>
         <br/>
 
     - También se puede añadir seccion en la lista de detalle, por ejemplo en las instancias de libros, modificamos la clase ``BookInstanceAdmin`` en el archivo ``admin.py``.
@@ -704,7 +704,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - Se puede ver la nueva vista de detalles de instancias de libros, al hacer click en uno de ellos.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img22.png" style="width:70%"/><br/>
         <br/>
 
     - Registros asociados a una instancia de libro, para ello también se modifica el archivo ``admin.py``.
@@ -724,7 +724,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - Se puede ver la nueva vista de detalles de un libro, y observas las instancias de libro asociados.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img23.png" style="width:70%"/><br/>
         <br/>
 
 - (Desafío: Modificar BookInstance y Author) Modificar clase ``BookInstance`` para mostrar libros, estado, fecha de retorno e id y ``Author`` para mostrar la lista de sus libros
@@ -751,7 +751,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - Se puede ver la nueva vista de las instancias de los libros.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img24.png" style="width:70%"/><br/>
         <br/>
     
     - Se modifica la clase ``AuthorAdmin`` del archivo ``admin.py``  y también se añade la clase ``BooksInline``.
@@ -771,7 +771,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - Se puede ver la nueva vista de Autor con lista de sus libros en la parte inferior.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p4img25.png" style="width:70%"/><br/>
         <br/>
 
 
@@ -914,7 +914,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
     - Abrimos la página con la URL ``http://127.0.0.1:8000/``, la cual se redirige a ``http://127.0.0.1:8000/catalog/`` y observamos lo siguiente.
 
-      <img src="img" style="width:70%"/><br/>
+      <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p5img1.png" style="width:70%"/><br/>
       <br/>
 
 - (Desafío: Sobreescribir ``title block`` en ``index.html``) Modificar el bloque de título preestablecido por la plantilla ``base_generic.html`` en ``index.html``.
@@ -952,7 +952,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - La página principal con su nuevo título se vería de la siguiente forma.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p5img2.png" style="width:70%"/><br/>
         <br/>
 
 ***Generic list and detail views***
@@ -1076,12 +1076,12 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
     - Se ingresa a la URL ``http://127.0.0.1:8000/`` redirigida a ``http://127.0.0.1:8000/catalog/`` y se hace click a ``All books`` se puede ver la lista de libros que hay.
 
-      <img src="img" style="width:70%"/><br/>
+      <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p6img1.png" style="width:70%"/><br/>
       <br/>
 
     - Si se ingresa a uno de esos libros se puede ver los detalles de este.
 
-      <img src="img" style="width:70%"/><br/>
+      <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p6img2.png" style="width:70%"/><br/>
       <br/>
 
 - Paginación para los registros
@@ -1123,7 +1123,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
     - Si se quiere ver un cambio en la lista de libros, entonces modificamos en ``views.py`` y colocamos ``paginate_by = 2`` para ver lo que sucede en la imagen, luego volvemos a colocarlo originalmente ``paginate_by = 10``.
 
-      <img src="img" style="width:70%"/><br/>
+      <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p6img3.png" style="width:70%"/><br/>
       <br/>
 
 - (Desafío: Lista de autores y detalle de autores) Crear las páginas correspondientes
@@ -1241,12 +1241,12 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - Se ingresa a la URL ``http://127.0.0.1:8000/`` redirigida a ``http://127.0.0.1:8000/catalog/`` y se hace click a ``All authors`` se puede ver la lista de autores que hay.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p6img4.png" style="width:70%"/><br/>
         <br/>
 
       - Si se ingresa a uno de los autores se puede ver los detalles de este.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p6img5.png" style="width:70%"/><br/>
         <br/>
 
 
@@ -1278,7 +1278,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
 - Se abre la página con la URL ``http://127.0.0.1:8000/`` redirigida a ``http://127.0.0.1:8000/catalog/`` y se puede ver lo siguiente.
     
-    <img src="img" style="width:70%"/><br/>
+    <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p7img1.png" style="width:70%"/><br/>
     <br/>
 
 
@@ -1288,27 +1288,27 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
     - Se observa la página administrativa.
 
-      <img src="img" style="width:70%"/><br/>
+      <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p8img1.png" style="width:70%"/><br/>
       <br/>
 
     - Se da click en ``add`` en la parte g``Groups`` para crear un grupo, se añade el nombre con ``Library Members`` y ninguna configuración de permisos, luego se da click en ``SAVE``.
 
-      <img src="img" style="width:70%"/><br/>
+      <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p8img2.png" style="width:70%"/><br/>
       <br/>
 
     - Luego vamos nuevamente a ``Home`` y damos click en ``Add`` pero en ``Users`` y ponemos el nombre de usuario (``usuario1``) y contraseña (``contraseña1``), luego se da click en ``SAVE``.
 
-      <img src="img" style="width:70%"/><br/>
+      <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p8img3.png" style="width:70%"/><br/>
       <br/>
     
     - Se abre la siguiente configuración para el ``usuario1`` y añadimos en grupos ``Library Members`` y se apreta ``SAVE``.
 
-      <img src="img" style="width:70%"/><br/>
+      <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p8img4.png" style="width:70%"/><br/>
       <br/>
     
     - Aquí se puede ver la lista de los usuarios creados.
 
-      <img src="img" style="width:70%"/><br/>
+      <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p8img5.png" style="width:70%"/><br/>
       <br/>
 
 - Configurando la vista de auntenticación.
@@ -1394,7 +1394,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - Luego se ingresa a la URL ``http://127.0.0.1:8000/accounts/login/``, se puede ingresar datos y se ve de la siguiente manera.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p8img6.png" style="width:70%"/><br/>
         <br/>
 
       - Sin embargo, al iniciar sesión por defecto llevaría a la ruta ``http://127.0.0.1:8000/accounts/profile/`` pero no se ha creado esta página aun, entonces configuramos en el archivo ``settings.py`` de ``library`` lo siguiente para que al iniciar sesión nos redirija a ``http://127.0.0.1:8000``.
@@ -1420,7 +1420,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - Luego se ingresa a la URL ``http://127.0.0.1:8000/accounts/logout/`` para ver la página
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p8img7.png" style="width:70%"/><br/>
         <br/>
 
     - Creando página de reinicio de contraseña
@@ -1514,7 +1514,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - Luego se ingresa a la URL ``http://127.0.0.1:8000/accounts/password_reset/`` para ver la página para reinicio de contraseña
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p8img8.png" style="width:70%"/><br/>
         <br/>
 
 - Probando los usarios autenticados
@@ -1540,7 +1540,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
     - Podemos ver en la página principal el usuario que ha ingresado en el lado izquierdo, en este caso ``usuario1``.
 
-      <img src="img" style="width:70%"/><br/>
+      <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p8img9.png" style="width:70%"/><br/>
       <br/>
 
 - Listando los libros del usuario actual
@@ -1602,17 +1602,17 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
       
       - Vamos a la URL ``http://127.0.0.1:8000/admin/catalog/bookinstance/`` como superusuario y accedemos a ``Book instances``.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p8img10.png" style="width:70%"/><br/>
         <br/>
 
       - Editamos las instancias de libros con estado ``On loan`` para que salga prestado con el nombre de ``usuario1``.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p8img11.png" style="width:70%"/><br/>
         <br/>
 
       - Ahora se puede ver de la siguiente manera las linstancias de libro.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p8img12.png" style="width:70%"/><br/>
         <br/>
 
     - Vista de libros alquilados
@@ -1685,7 +1685,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
       - Ahora en la página principal si hacemos click en ``My Borrowed`` con el usuario ``usuario1`` se podrá ver lo siguiente.
 
-        <img src="img" style="width:70%"/><br/>
+        <img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/p8img13.png" style="width:70%"/><br/>
         <br/>
 
 - Permisos asociados a modelos
@@ -1721,7 +1721,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
 <br/>
 
-<img src="commits" style="width:70%"/><br/><br/>
+<img src="https://raw.githubusercontent.com/mhuamanivar/PW2-HuamaniV-Lab05/main/imagenes/commits.png" style="width:70%"/><br/><br/>
 
 ##
 ## CUESTIONARIO
