@@ -57,7 +57,7 @@
 ## APLICACIÓN LIBRARY
 
 
-***Part 1: The local Library website (Instalando django)***
+***The local Library website (E instalando Django)***
 
 Se utiliza el sistema Windows para usar las herramientas necesarias para crear los proyectos.<br/><br/>
 
@@ -116,7 +116,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
     ```
     <br/>
 
-***Part 2: Creating a skeleton website***
+***Creating a skeleton website***
 
 - Creación del proyecto library en la carpeta Scripts.
 
@@ -293,7 +293,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
     <img src="img" style="width:70%"/><br/>
     <br/>
 
-***Part 3: Using models***
+***Using models***
 
 - Definiendo los modelos del Library.
 
@@ -439,7 +439,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
       <br/>
 
 
-***Part 4: Django admin site***
+***Django admin site***
 
 - Registrando los modelos en el archivo ``admin.py`` de la aplicación ``catalog`` colocando lo siguiente.
 
@@ -546,12 +546,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
     - Añadimos instancias de libros en el library y observamos opciones
 
-      - Se hace click en ``Book instances``.
-
-        <img src="img" style="width:70%"/><br/>
-        <br/>
-
-      - Para crear una nueva instancia, click en ``ADD BOOK INSTANCE`` y se añaden instancias de los libros.
+      - Se hace click en ``Book instances`` y para crear una nueva instancia, click en ``ADD BOOK INSTANCE``.
 
         <img src="img" style="width:70%"/><br/>
         <br/>
@@ -571,7 +566,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
         <img src="img" style="width:70%"/><br/>
         <br/>
 
-      - Ejemplo de crear una instancia de un libro no disponible.
+      - Ejemplo de crear una instancia de un libro reservado.
 
         <img src="img" style="width:70%"/><br/>
         <br/>
@@ -780,7 +775,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
         <br/>
 
 
-***Part 5: Creating our home page***
+***Creating our home page***
 
 - Creando la página principal.
 
@@ -960,7 +955,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
         <img src="img" style="width:70%"/><br/>
         <br/>
 
-***Part 6: Generic list and detail views***
+***Generic list and detail views***
 
 - Página de lista de libros, a la cual se accede usando ``http://127.0.0.1:8000/catalog/books/``
     
@@ -1133,7 +1128,7 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 
 - (Desafío: Lista de autores y detalle de autores) Crear las páginas correspondientes
 
-    - Página de lista de autores, a la cual se accede usando ``http://127.0.0.1:8000/catalog/autrors/``
+    - Página de lista de autores, a la cual se accede usando ``http://127.0.0.1:8000/catalog/authors/``
         
       - URL mapping en el archivo ``urls.py`` de ``catalog``, para acceder a la lista de libros cuando se dirija a la URL mencionada.
 
@@ -1255,83 +1250,470 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
         <br/>
 
 
-***Part 7: Sessions framework***
+***Sessions framework***
 
-- Definiendo los modelos del Library.
+- Obteniendo contador de visitas con sesiones, modificando el archivo ``views.py`` de ``catalog``.
 
-    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
+    ```py
+    # Numero de visitas en la sesión
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
+
+    context = {
+        'num_books': num_books,
+        'num_instances': num_instances,
+        'num_instances_available': num_instances_available,
+        'num_authors': num_authors,
+        'num_visits': num_visits, # También se agrega esto
+    }
+    ```
+    <br/>
+
+- Se modifica el archivo ``index.html`` de ``catalog\templates`` para mostrar las visitas de la sesión, y se añaden las siguientes líneas.
+
+    ```html
+    <p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
+    ```
+    <br/>
+
+- Se abre la página con la URL ``http://127.0.0.1:8000/`` redirigida a ``http://127.0.0.1:8000/catalog/`` y se puede ver lo siguiente.
+    
+    <img src="img" style="width:70%"/><br/>
+    <br/>
+
+
+***User authentication and permissions***
+
+- Creando usuarios y grupos en la URL ``http://127.0.0.1:8000/admin/``.
+
+    - Se observa la página administrativa.
+
+      <img src="img" style="width:70%"/><br/>
+      <br/>
+
+    - Se da click en ``add`` en la parte g``Groups`` para crear un grupo, se añade el nombre con ``Library Members`` y ninguna configuración de permisos, luego se da click en ``SAVE``.
+
+      <img src="img" style="width:70%"/><br/>
+      <br/>
+
+    - Luego vamos nuevamente a ``Home`` y damos click en ``Add`` pero en ``Users`` y ponemos el nombre de usuario (``usuario1``) y contraseña (``contraseña1``), luego se da click en ``SAVE``.
+
+      <img src="img" style="width:70%"/><br/>
+      <br/>
+    
+    - Se abre la siguiente configuración para el ``usuario1`` y añadimos en grupos ``Library Members`` y se apreta ``SAVE``.
+
+      <img src="img" style="width:70%"/><br/>
+      <br/>
+    
+    - Aquí se puede ver la lista de los usuarios creados.
+
+      <img src="img" style="width:70%"/><br/>
+      <br/>
+
+- Configurando la vista de auntenticación.
+
+    - Añadimos la url de ``accounts`` en el archivo ``urls.py`` de la carpeta ``library``.
 
       ```py
-      class Genre(models.Model):
-          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
-
-          def __str__(self):
-              return self.name
+      # Add Django site authentication urls (for login, logout, password management)
+      urlpatterns += [
+          path('accounts/', include('django.contrib.auth.urls')),
+      ]
       ```
       <br/>
 
-***Part 8: User authentication and permissions***
-
-- Definiendo los modelos del Library.
-
-    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
+    - Modificamos el archivo ``settings.py`` de la carpeta ``library`` para añadir la carpeta de ``templates``, también es necesario importar ``os``, por lo que se obtiene lo siguiente.
 
       ```py
-      class Genre(models.Model):
-          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+      import os
 
-          def __str__(self):
-              return self.name
+      TEMPLATES = [
+          {
+              'BACKEND': 'django.template.backends.django.DjangoTemplates',
+              'DIRS': [os.path.join(BASE_DIR, 'templates')],
+              'APP_DIRS': True,
+              'OPTIONS': {
+                  'context_processors': [
+                      'django.template.context_processors.debug',
+                      'django.template.context_processors.request',
+                      'django.contrib.auth.context_processors.auth',
+                      'django.contrib.messages.context_processors.messages',
+                  ],
+              },
+          },
+      ]
       ```
       <br/>
 
+- Creando los templates, se crea la carpeta ``registration`` dentro de otra carpeta creada ``templates`` en la ruta principal.
 
-***Part 9: Working with forms***
+    - Creando página del login
+    
+      - Se crea dentro de carpeta ``registration`` el archivo ``login.html``.
 
-- Definiendo los modelos del Library.
+        ```html
+        {% extends "base_generic.html" %}
 
-    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
+        {% block content %}
 
-      ```py
-      class Genre(models.Model):
-          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
+        {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+        {% endif %}
 
-          def __str__(self):
-              return self.name
+        {% if next %}
+            {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+            {% else %}
+            <p>Please login to see this page.</p>
+            {% endif %}
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>{{ form.username.label_tag }}</td>
+                    <td>{{ form.username }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.password.label_tag }}</td>
+                    <td>{{ form.password }}</td>
+                </tr>
+            </table>
+            <input type="submit" value="login">
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+
+        {# Assumes you setup the password_reset view in your URLconf #}
+        <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+
+        {% endblock %}
+        ```
+        <br/>
+
+      - Luego se ingresa a la URL ``http://127.0.0.1:8000/accounts/login/``, se puede ingresar datos y se ve de la siguiente manera.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Sin embargo, al iniciar sesión por defecto llevaría a la ruta ``http://127.0.0.1:8000/accounts/profile/`` pero no se ha creado esta página aun, entonces configuramos en el archivo ``settings.py`` de ``library`` lo siguiente para que al iniciar sesión nos redirija a ``http://127.0.0.1:8000``.
+
+        ```py
+        # Redirir a página principal 'home' despues del login
+        LOGIN_REDIRECT_URL = '/'
+        ```
+
+    - Creando página de logout
+    
+      - Se crea dentro de carpeta ``registration`` el archivo ``logged_out.html``.
+
+        ```html
+        {% extends "base_generic.html" %}
+
+        {% block content %}
+        <p>Logged out!</p>
+        <a href="{% url 'login'%}">Click here to login again.</a>
+        {% endblock %}
+        ```
+        <br/>
+
+      - Luego se ingresa a la URL ``http://127.0.0.1:8000/accounts/logout/`` para ver la página
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+    - Creando página de reinicio de contraseña
+    
+      - Se crea dentro de carpeta ``registration`` el archivo ``password_reset_form.html``.
+
+        ```html
+        {% extends "base_generic.html" %}
+
+        {% block content %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if form.email.errors %}
+                {{ form.email.errors }}
+            {% endif %}
+            <p>{{ form.email }}</p>
+            <input type="submit" class="btn btn-default btn-lg" value="Reset password">
+        </form>
+        {% endblock %}
+        ```
+        <br/>
+
+      - Se crea dentro de carpeta ``registration`` el archivo ``password_reset_done.html``.
+
+        ```html
+        {% extends "base_generic.html" %}
+
+        {% block content %}
+        <p>We've emailed you instructions for setting your password. If they haven't arrived in a few minutes, check your spam folder.</p>
+        {% endblock %}
+        ```
+        <br/>
+        
+      - Se crea dentro de carpeta ``registration`` el archivo ``password_reset_email.html``.
+
+        ```html
+        Someone asked for password reset for email {{ email }}. Follow the link below:
+        {{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+        ```
+        <br/>
+      
+      - Se crea dentro de carpeta ``registration`` el archivo ``password_reset_confirm.html``.
+
+        ```html
+        {% extends "base_generic.html" %}
+
+        {% block content %}
+        {% if validlink %}
+            <p>Please enter (and confirm) your new password.</p>
+            <form action="" method="post">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td>{{ form.new_password1.errors }}
+                            <label for="id_new_password1">New password:</label>
+                        </td>
+                        <td>{{ form.new_password1 }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.new_password2.errors }}
+                            <label for="id_new_password2">Confirm password:</label>
+                        </td>
+                        <td>{{ form.new_password2 }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Change my password"></td>
+                    </tr>
+                </table>
+            </form>
+        {% else %}
+            <h1>Password reset failed</h1>
+            <p>The password reset link was invalid, possibly because it has already been used. Please request a new password reset.
+            </p>
+        {% endif %}
+        {% endblock %}
+        ```
+        <br/>
+      
+      - Se crea dentro de carpeta ``registration`` el archivo ``password_reset_complete.html``.
+
+        ```html
+        {% extends "base_generic.html" %}
+
+        {% block content %}
+        <h1>The password has been changed!</h1>
+        <p><a href="{% url 'login' %}">log in again?</a></p>
+        {% endblock %}
+        ```
+        <br/>
+
+      - Luego se ingresa a la URL ``http://127.0.0.1:8000/accounts/password_reset/`` para ver la página para reinicio de contraseña
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+- Probando los usarios autenticados
+
+    - Modificamos la plantilla ``base_generic.html`` que se encuentra en ``catalog`` en la parte del bloque ``sidebar``
+
+      ```html
+      {% block sidebar %}
+      <ul class="sidebar-nav">
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'books' %}">All books</a></li>
+          <li><a href="{% url 'authors' %}">All authors</a></li>
+          {% if user.is_authenticated %}
+              <li>User: {{ user.get_username }}</li>
+              <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+          {% else %}
+              <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+          {% endif %}
+      </ul>
+      {% endblock %}
       ```
       <br/>
 
-***Part 10: Testing a Django web application***
+    - Podemos ver en la página principal el usuario que ha ingresado en el lado izquierdo, en este caso ``usuario1``.
 
-- Definiendo los modelos del Library.
+      <img src="img" style="width:70%"/><br/>
+      <br/>
 
-    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
+- Listando los libros del usuario actual
+
+    - Añadimos ``borrowed`` en las instancias de los libros
+
+      - Cambiamos el archivo ``models.py`` de ``catalog`` para modificar la clase ``BookInstance`` añadiendo las líneas siguientes, y a la vez agregamos una nueva importación ``from django.contrib.auth.models import User``
+
+        ```py
+        from django.contrib.auth.models import User
+        from datetime import date
+
+        class BookInstance(models.Model):
+            # ...
+            borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+            @property
+            def is_overdue(self):
+                # Determines if the book is overdue based on due date and current date.
+                return bool(self.due_back and date.today() > self.due_back)
+            # ...
+        ```
+        <br/>
+
+      - Ahora hacemos las migraciones debido a que se han modificado los modelos.
+
+        ```sh
+        (my_env) C:\Users\melsy\Lab05\my_env\Scripts\library>python manage.py makemigrations
+        Migrations for 'catalog':
+          catalog\migrations\0003_bookinstance_borrower.py
+            - Add field borrower to bookinstance
+
+        (my_env) C:\Users\melsy\Lab05\my_env\Scripts\library>python manage.py migrate
+        Operations to perform:
+          Apply all migrations: admin, auth, catalog, contenttypes, sessions
+        Running migrations:
+          Applying catalog.0003_bookinstance_borrower... OK
+        ```
+        <br/>
+
+      - Ahora modificamos el archivo ``admin.py`` de ``catalog`` de la siguiente manera.
+
+        ```py
+        @admin.register(BookInstance)
+        class BookInstanceAdmin(admin.ModelAdmin):
+            list_display = ('book', 'status', 'borrower', 'due_back', 'id')
+            list_filter = ('status', 'due_back')
+
+            fieldsets = (
+                (None, {
+                    'fields': ('book', 'imprint', 'id')
+                }),
+                ('Availability', {
+                    'fields': ('status', 'due_back', 'borrower') # Se añade aquí borrower
+                }),
+            )
+        ```
+        <br/>
+      
+      - Vamos a la URL ``http://127.0.0.1:8000/admin/catalog/bookinstance/`` como superusuario y accedemos a ``Book instances``.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Editamos las instancias de libros con estado ``On loan`` para que salga prestado con el nombre de ``usuario1``.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+      - Ahora se puede ver de la siguiente manera las linstancias de libro.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+    - Vista de libros alquilados
+
+      - Cambiamos el archivo ``views.py`` de ``catalog`` para añadir la clase ``LoanedBooksByUserListView`` añadiendo las líneas siguientes, y a la vez agregamos una nueva importación ``from django.contrib.auth.mixins import LoginRequiredMixin``
+
+        ```py
+        from django.contrib.auth.mixins import LoginRequiredMixin
+
+        class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
+            # Generic class-based view listing books on loan to current user.
+            model = BookInstance
+            template_name = 'catalog/bookinstance_list_borrowed_user.html'
+            paginate_by = 10
+
+            def get_queryset(self):
+                return (
+                    BookInstance.objects.filter(borrower=self.request.user)
+                    .filter(status__exact='o')
+                    .order_by('due_back')
+                )
+        ```
+        <br/>
+
+      - Ahora se agrega una URL en el archivo ``urls.py`` de ``catalog``.
+
+        ```py
+        urlpatterns += [
+            path('mybooks/', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
+        ]
+        ```
+        <br/>
+
+      - Ahora agregamos una plantilla ``bookinstance_list_borrowed_user.html`` en la carpeta ``catalog\templates\catalog``.
+
+        ```html
+        {% extends "base_generic.html" %}
+
+        {% block content %}
+        <h1>Borrowed books</h1>
+
+        {% if bookinstance_list %}
+            <ul>
+                {% for bookinst in bookinstance_list %}
+                    <li class="{% if bookinst.is_overdue %}text-danger{% endif %}">
+                        <a href="{% url 'book-detail' bookinst.book.pk %}">{{ bookinst.book.title }}</a> ({{ bookinst.due_back }})
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>There are no books borrowed.</p>
+        {% endif %}
+        {% endblock %}
+        ```
+        <br/>
+      
+      - Ahora modificamos ``base_generic.html`` de la carpeta ``catalog\templates``, en el bloque ``sidebar``.
+
+        ```html
+        {% if user.is_authenticated %}
+            <li>User: {{ user.get_username }}</li>
+            <!--Se añade la siguiente línea-->
+            <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
+            <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+        {% endif %}
+        ```
+        <br/>
+
+      - Ahora en la página principal si hacemos click en ``My Borrowed`` con el usuario ``usuario1`` se podrá ver lo siguiente.
+
+        <img src="img" style="width:70%"/><br/>
+        <br/>
+
+- Permisos asociados a modelos
+
+    - Se abre el archivo ``models.py`` de ``catalog``, en la clase ``Meta`` que se encuentra dentro de ``BookInstance``.
 
       ```py
-      class Genre(models.Model):
-          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
-
-          def __str__(self):
-              return self.name
+      class Meta:
+          ordering = ['due_back']
+          # Se añade la siguiente línea
+          permissions = (("can_mark_returned", "Set book as returned"),)
       ```
       <br/>
 
+    - Luego se hacen las migraciones con ``python manage.py makemigrations`` y ``python manage.py migrate``.
 
-***Part 11: Deploying Django to production***
-
-- Definiendo los modelos del Library.
-
-    - Modelo Genre, se crea la clase ``Genre`` que representa un género literario.
-
-      ```py
-      class Genre(models.Model):
-          name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
-
-          def __str__(self):
-              return self.name
+      ```sh
+      (my_env) C:\Users\melsy\Lab05\my_env\Scripts\library>python manage.py makemigrations
+      Migrations for 'catalog':
+        catalog\migrations\0004_alter_bookinstance_options.py
+          - Change Meta options on bookinstance
+      (my_env) C:\Users\melsy\Lab05\my_env\Scripts\library>python manage.py migrate
+      Operations to perform:
+        Apply all migrations: admin, auth, catalog, contenttypes, sessions
+      Running migrations:
+        Applying catalog.0004_alter_bookinstance_options... OK
       ```
       <br/>
-
 
 
 ##
@@ -1344,9 +1726,9 @@ Se utiliza el sistema Windows para usar las herramientas necesarias para crear l
 ##
 ## CUESTIONARIO
 
-- **Resalte un aprendizaje que adquiri ́o al momento de estudiar Django.**
+- **Resalte un aprendizaje que adquirió al momento de estudiar Django.**
 
-  respuesta
+  Django es un framework de desarrollo, que nos permite crear bibliotecas que tengan usuarios, superusuarios, y entre ellos pueden formar grupos para realizar diversas tareas. También nos permite crear diferentes páginas a través del lenguaje de programación Python, como se ha visto, podemos tener una página principal para mostrar todos los datos que se ha ido guardado en la base de datos, de manera que estén organizadas o tengan un control de filtro para mostrar solo una cierta cantidad de datos necesarias. Además, para el control de usuarios también permite tener acceso con contraseñas, o si es que no se tiene esta, entonces permite cambiar la contraseña por medio de correos, lo que da una mayor seguridad. Cabe resaltar que tiene muchas más herramientas que pueden ser utilizadas, como las vistas, la fecha, filtros, entre otros.
 
 <br/>
 <br/>
