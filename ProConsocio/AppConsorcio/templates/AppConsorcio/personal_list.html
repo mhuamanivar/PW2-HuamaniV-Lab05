@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Personal List</title>
+{% endblock %}
+
+{% block content %}
+
+<h1>Personal de Consorcio</h1>
+
+{% if personal_list %}
+    <ul>
+
+    {% for personal in personal_list %}
+        <li>
+        <a href="">
+        {{ personal }} ({{ personal.email }})
+        </a>
+        </li>
+    {% endfor %}
+
+    </ul>
+    {% else %}
+    <p>Aun no hay personal.</p>
+    {% endif %} 
+{% endblock %}

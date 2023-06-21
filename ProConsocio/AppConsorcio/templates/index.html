@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Consorcio San Antonio</title>
+{% endblock %}
+
+{% block content %}
+    <h1>Consorcio San Antonio</h1>
+    <p>
+        Bienvenido a la empresa más confiable del 
+        <em>Perú</em>!
+    </p>
+    <h2>Contenido dinámico</h2>
+    <p>La empresa cuenta con: </p>
+    <ul>
+        <li><strong>Cantidad de personal:</strong> {{ num_personal }}</li>
+    </ul>
+
+    <p>
+        Esta página fue visitado {{ num_visits }} vece{{ num_visits|pluralize }}.
+    </p>
+{% endblock %}
